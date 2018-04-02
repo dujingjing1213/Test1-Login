@@ -1,6 +1,6 @@
 import Story from "./story.mjs"
 
-//import webdriver from "selenium-webdriver"
+import webdriver from "selenium-webdriver"
 
 
 
@@ -55,6 +55,14 @@ export default class LoginStory extends Story{
         if(/enter\spassword/i.test(message)) this.password=value;
 
     }
+    // let driver = new webdriver.Builder().forBrowser("chrome").build();
+    // const msg_url="https://everdoc.github.io/hellojs/quize/login.html";
+    // driver.get(msg_url);
+    // driver.wait(webdriver.until.urlIs(msg_url),1000*10)
+
+
+
+
 
 
 
@@ -63,11 +71,11 @@ export default class LoginStory extends Story{
         this.expected=this.getValue(message);
         let driver= new webdriver.Builder().forBrowser("chrome").build();
 
-        const login_url='https://everdoc.github.io/hellojs/login.html';
+        const login_url='https://everdoc.github.io/hellojs/quize/login.html';
 
-        driver.get(login_url);
+        driver.get(login_url);//访问这个地址
 
-        driver.wait(webdriver.until.titleIs("Login Quize"), 1000*10)
+        driver.wait(webdriver.until.urlIs(login_url), 1000*10)
 
         .then((success)=>{
 
@@ -80,8 +88,6 @@ export default class LoginStory extends Story{
             driver.findElement(webdriver.By.id('password')).sendKeys(this.password);
 
             driver.findElement(webdriver.By.tagName('button')).click();
-
-
 
             driver.findElement(webdriver.By.id('result')).getText().then((message)=>{
 
